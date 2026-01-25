@@ -3,18 +3,15 @@ package com.euflausino.emailsender.aplication.usecase;
 import com.euflausino.emailsender.aplication.entity.EmailEntity;
 import com.euflausino.emailsender.aplication.exception.EmailNaoEnviadoException;
 import com.euflausino.emailsender.aplication.ports.input.ISendEmailInput;
-import com.euflausino.emailsender.aplication.ports.output.IEmailSaveOutput;
 import org.hibernate.cfg.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 public class EmailSenderUsecase implements ISendEmailInput {
 
-    private final IEmailSaveOutput saveEmail;
     private final JavaMailSender mailSender;
 
-    public EmailSenderUsecase(IEmailSaveOutput saveEmail, JavaMailSender mailSender) {
-        this.saveEmail = saveEmail;
+    public EmailSenderUsecase(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
@@ -31,7 +28,6 @@ public class EmailSenderUsecase implements ISendEmailInput {
         }catch(EmailNaoEnviadoException e){
            throw new EmailNaoEnviadoException("O email não pode ser enviado.");
         }
-        saveEmail.saveEmail(email);
     }
 
 }
