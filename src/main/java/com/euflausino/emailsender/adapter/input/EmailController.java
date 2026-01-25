@@ -5,10 +5,7 @@ import com.euflausino.emailsender.adapter.input.dtos.mapper.EmailMapper;
 import com.euflausino.emailsender.aplication.ports.input.ISendEmailInput;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/email")
@@ -25,4 +22,10 @@ public class EmailController {
         sendEmail.sendEmail(EmailMapper.toEmailEntity(emailRequestDTO));
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/health")
+    public String health() {
+        return "OK";
+    }
+
 }
