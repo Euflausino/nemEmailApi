@@ -9,15 +9,11 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: read
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: read #This is required for actions/checkout
 
     steps:
@@ -59,13 +55,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: java-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_FBF72FB4F8F04CEAA35396466A5703C5 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B770B8AF98794B5C8B34408B82925EF9 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F79DE887A7C541938450B157289D171C }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
