@@ -41,7 +41,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        String ip = request.getHeader("X-Forwarded-For");
+        String ip = request.getRemoteAddr();
         if (ip == null) {
             ip = request.getRemoteAddr();
         } else {
