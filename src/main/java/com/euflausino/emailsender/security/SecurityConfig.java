@@ -50,7 +50,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("https://gray-ocean-053fa251e.6.azurestaticapps.net"));
+        config.setAllowedOrigins(List.of("https://brunoeuflausino.com"));
 
         config.setAllowedMethods(List.of("POST", "OPTIONS"));
         config.setAllowedHeaders(List.of("Content-Type"));
