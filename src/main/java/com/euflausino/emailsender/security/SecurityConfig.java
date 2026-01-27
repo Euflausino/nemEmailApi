@@ -60,5 +60,12 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return username -> {
+            throw  new UsernameNotFoundException("No users configured");
+        };
+    }
 }
 
