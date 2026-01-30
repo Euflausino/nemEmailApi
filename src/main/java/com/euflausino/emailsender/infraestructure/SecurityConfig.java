@@ -20,7 +20,6 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@Profile("!test")
 public class SecurityConfig {
 
     @Bean
