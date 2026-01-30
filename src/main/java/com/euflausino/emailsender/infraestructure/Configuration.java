@@ -1,4 +1,4 @@
-package com.euflausino.emailsender.config;
+package com.euflausino.emailsender.infraestructure;
 
 
 import com.euflausino.emailsender.aplication.usecase.EmailSenderUsecase;

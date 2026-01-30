@@ -1,4 +1,4 @@
-package com.euflausino.emailsender.security;
+package com.euflausino.emailsender.infraestructure;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
