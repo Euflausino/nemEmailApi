@@ -52,6 +52,8 @@ public class RateLimitFilter extends OncePerRequestFilter {
 
         if (bucket.tryConsume(1)) {
             filterChain.doFilter(request, response);
+            response.setHeader("X-Rate-Limit-Limit", "5");
+            response.setHeader("X-Rate-Limit-Remaining", String.valueOf(bucket.getAvailableTokens()));
         } else {
             response.setStatus(429);
             response.getWriter().write("Too many requests");
