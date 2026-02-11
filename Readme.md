@@ -32,7 +32,7 @@ API REST desenvolvida em **Java com Spring Boot** para envio de e-mails de forma
 ## 📂 Estrutura do Projeto (Hexagonal)
 
 ```bash
-src/main/java/com/seuprojeto/emailsender
+src/main/java/com/euflausino/emailsender
 │
 ├── aplication
 │   ├── entity
