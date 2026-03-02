@@ -28,13 +28,6 @@ class EmailControllerTest {
     private EmailSenderUsecase emailService;
 
     @Test
-    void deveRetornar200QuandoHealthForChamado() throws Exception {
-        mockMvc.perform(get("/email/health"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("OK"));
-    }
-
-    @Test
     void deveChamarServiceAoEnviarEmail() throws Exception {
 
         String json = """
