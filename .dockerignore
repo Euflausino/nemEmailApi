@@ -1,0 +1,14 @@
+# Ignore build output and local IDE/project files to keep Docker build context small
+target/
+.git
+.gitignore
+.idea/
+.vscode/
+.DS_Store
+*.iml
+
+# Optional: if you have local docker credentials or CI files
+.env
+
+# Don't ignore src or pom.xml because Dockerfile needs them to build
+
