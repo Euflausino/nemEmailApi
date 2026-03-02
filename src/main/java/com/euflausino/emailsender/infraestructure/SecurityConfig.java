@@ -51,7 +51,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("https://brunoeuflausino.com"));
+        config.setAllowedOrigins(List.of("https://www.brunoeuflausino.com"));
 
         config.setAllowedMethods(List.of("POST", "OPTIONS"));
         config.setAllowedHeaders(List.of("Content-Type"));
