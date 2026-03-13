@@ -1,7 +1,9 @@
 package com.euflausino.emailsender.adapter.input.dtos.mapper;
 
 import com.euflausino.emailsender.adapter.input.dtos.EmailRequestDTO;
+import com.euflausino.emailsender.adapter.input.dtos.OthersEmailRequestDTO;
 import com.euflausino.emailsender.aplication.entity.EmailEntity;
+import com.euflausino.emailsender.aplication.entity.EmailOtherEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,19 @@ class EmailMapperTest {
         EmailRequestDTO request = new EmailRequestDTO("test@example.com", "Assunto", "Mensagem");
 
         EmailEntity entity = EmailMapper.toEmailEntity(request);
+
+        assertNotNull(entity);
+        assertEquals("test@example.com", entity.getEmail());
+        assertEquals("Assunto", entity.getAssunto());
+        assertEquals("Mensagem", entity.getMensagem());
+    }
+
+    @Test
+    @DisplayName("Deve mapear EmailRequestDTO para EmailEntity")
+    void deveMapearParaEmailOtherEntity() {
+        OthersEmailRequestDTO request = new OthersEmailRequestDTO("test@example.com", "Assunto", "Mensagem");
+
+        EmailOtherEntity entity = EmailMapper.toEmailOtherEntity(request);
 
         assertNotNull(entity);
         assertEquals("test@example.com", entity.getEmail());

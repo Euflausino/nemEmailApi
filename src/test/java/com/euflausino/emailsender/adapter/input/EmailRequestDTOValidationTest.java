@@ -1,6 +1,7 @@
 package com.euflausino.emailsender.adapter.input;
 
 import com.euflausino.emailsender.adapter.input.dtos.EmailRequestDTO;
+import com.euflausino.emailsender.adapter.input.dtos.OthersEmailRequestDTO;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -52,6 +53,40 @@ class EmailRequestDTOValidationTest {
         EmailRequestDTO request = new EmailRequestDTO("invalid-email", "Assunto", "Mensagem");
 
         Set<ConstraintViolation<EmailRequestDTO>> violations = validator.validate(request);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+        assertEquals("Email inváalido!", violations.iterator().next().getMessage());
+    }
+
+    @Test
+    @DisplayName("Deve validar EmailRequestDTO válido")
+    void deveValidarOtherEmailRequestDTOValido() {
+        OthersEmailRequestDTO request = new OthersEmailRequestDTO("test@example.com", "Assunto", "Mensagem");
+
+        Set<ConstraintViolation<OthersEmailRequestDTO>> violations = validator.validate(request);
+
+        assertTrue(violations.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Deve invalidar email vazio")
+    void deveInvalidarEmailVazioOther() {
+        OthersEmailRequestDTO request = new OthersEmailRequestDTO("", "Assunto", "Mensagem");
+
+        Set<ConstraintViolation<OthersEmailRequestDTO>> violations = validator.validate(request);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+        assertEquals("Email obrigatório!", violations.iterator().next().getMessage());
+    }
+
+    @Test
+    @DisplayName("Deve invalidar email inválido")
+    void deveInvalidarEmailInvalidoOther() {
+        OthersEmailRequestDTO request = new OthersEmailRequestDTO("invalid-email", "Assunto", "Mensagem");
+
+        Set<ConstraintViolation<OthersEmailRequestDTO>> violations = validator.validate(request);
 
         assertFalse(violations.isEmpty());
         assertEquals(1, violations.size());

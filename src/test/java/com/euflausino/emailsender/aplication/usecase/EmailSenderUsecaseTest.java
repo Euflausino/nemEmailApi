@@ -1,6 +1,7 @@
 package com.euflausino.emailsender.aplication.usecase;
 
 import com.euflausino.emailsender.aplication.entity.EmailEntity;
+import com.euflausino.emailsender.aplication.entity.EmailOtherEntity;
 import com.euflausino.emailsender.aplication.exception.EmailNaoEnviadoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,10 +30,12 @@ class EmailSenderUsecaseTest {
     private EmailSenderUsecase emailSenderUsecase;
 
     private EmailEntity emailEntity;
+    private EmailOtherEntity emailOtherEntity;
 
     @BeforeEach
     void setUp() {
         emailEntity = new EmailEntity("test@example.com", "Subject", "Message");
+        emailOtherEntity = new EmailOtherEntity("test@example.com", "Subject", "Message");
     }
 
     @Test
@@ -44,12 +47,32 @@ class EmailSenderUsecaseTest {
     }
 
     @Test
+    @DisplayName("Deve enviar email com sucesso")
+    void deveEnviarEmailParaOutroComSucesso() {
+        emailSenderUsecase.sendEmailToOthers(emailOtherEntity);
+
+        verify(mailSender).send(any(SimpleMailMessage.class));
+    }
+
+    @Test
     @DisplayName("Deve lançar exceção quando falhar ao enviar email")
     void deveLancarExcecaoQuandoFalhar() {
         doThrow(new MailSendException("Failed")).when(mailSender).send(any(SimpleMailMessage.class));
 
         EmailNaoEnviadoException exception = assertThrows(EmailNaoEnviadoException.class, () -> {
             emailSenderUsecase.sendEmail(emailEntity);
+        });
+
+        assertEquals("O email não pode ser enviado.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Deve lançar exceção quando falhar ao enviar email")
+    void deveLancarExcecaoQuandoFalharEmailOutro() {
+        doThrow(new MailSendException("Failed")).when(mailSender).send(any(SimpleMailMessage.class));
+
+        EmailNaoEnviadoException exception = assertThrows(EmailNaoEnviadoException.class, () -> {
+            emailSenderUsecase.sendEmailToOthers(emailOtherEntity);
         });
 
         assertEquals("O email não pode ser enviado.", exception.getMessage());

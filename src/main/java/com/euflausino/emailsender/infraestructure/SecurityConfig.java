@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/email").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/**").permitAll()
                         .anyRequest().denyAll()
                 )
                 .addFilterBefore(rateLimitFilter(), UsernamePasswordAuthenticationFilter.class);
