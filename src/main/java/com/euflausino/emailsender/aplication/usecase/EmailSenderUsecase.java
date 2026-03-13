@@ -24,7 +24,7 @@ public class EmailSenderUsecase implements ISendEmailInput {
             message.setSubject(emmailAndAssunto);
             message.setText(email.getMensagem());
             mailSender.send(message);
-        }catch(EmailNaoEnviadoException e){
+        }catch(Exception e){
            throw new EmailNaoEnviadoException("O email não pode ser enviado.");
         }
     }
