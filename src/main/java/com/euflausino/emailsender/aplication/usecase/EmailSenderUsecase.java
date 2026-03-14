@@ -5,44 +5,29 @@ import com.euflausino.emailsender.aplication.entity.EmailOtherEntity;
 import com.euflausino.emailsender.aplication.exception.EmailNaoEnviadoException;
 import com.euflausino.emailsender.aplication.ports.input.ISendEmailInput;
 import com.euflausino.emailsender.aplication.ports.input.ISendEmailToOthersInput;
+import com.euflausino.emailsender.aplication.ports.output.ISendEmailOutput;
+import com.euflausino.emailsender.aplication.ports.output.ISendEmailToOthersOutput;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 public class EmailSenderUsecase implements ISendEmailInput, ISendEmailToOthersInput {
 
-    private final JavaMailSender mailSender;
+    private final ISendEmailOutput sendEmailOutput;
+    private final ISendEmailToOthersOutput sendEmailToOthersOutput;
 
-    public EmailSenderUsecase(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
+    public EmailSenderUsecase(ISendEmailOutput sendEmailOutput, ISendEmailToOthersOutput sendEmailToOthersOutput) {
+        this.sendEmailOutput = sendEmailOutput;
+        this.sendEmailToOthersOutput = sendEmailToOthersOutput;
     }
 
     @Override
-    public void sendEmail(EmailEntity email) {
-        String emmailAndAssunto = email.getEmail() + " está te enviando um email! Assunto: " +email.getAssunto();
-        try{
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("${spring.mail.username}");
-            message.setTo("brunoeuflausino@gmail.com");
-            message.setSubject(emmailAndAssunto);
-            message.setText(email.getMensagem());
-            mailSender.send(message);
-        }catch(Exception e){
-           throw new EmailNaoEnviadoException("O email não pode ser enviado.");
-        }
+    public  void iSendEmail(EmailEntity email) {
+        sendEmailOutput.sendEmail(email);
     }
 
     @Override
-    public void sendEmailToOthers(EmailOtherEntity email) {
-        try{
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("${spring.mail.username}");
-            message.setTo(email.getEmail());
-            message.setSubject(email.getAssunto());
-            message.setText(email.getMensagem());
-            mailSender.send(message);
-        }catch(Exception e){
-            throw new EmailNaoEnviadoException("O email não pode ser enviado.");
-        }
+    public  void iSendEmailToOthers(EmailOtherEntity email) {
+        sendEmailToOthersOutput.sendEmailToOthers(email);
     }
 
 }

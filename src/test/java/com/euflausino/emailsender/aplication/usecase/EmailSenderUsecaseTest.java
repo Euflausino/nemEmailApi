@@ -41,7 +41,7 @@ class EmailSenderUsecaseTest {
     @Test
     @DisplayName("Deve enviar email com sucesso")
     void deveEnviarEmailComSucesso() {
-        emailSenderUsecase.sendEmail(emailEntity);
+        emailSenderUsecase.iSendEmail(emailEntity);
 
         verify(mailSender).send(any(SimpleMailMessage.class));
     }
@@ -49,7 +49,7 @@ class EmailSenderUsecaseTest {
     @Test
     @DisplayName("Deve enviar email com sucesso")
     void deveEnviarEmailParaOutroComSucesso() {
-        emailSenderUsecase.sendEmailToOthers(emailOtherEntity);
+        emailSenderUsecase.iSendEmailToOthers(emailOtherEntity);
 
         verify(mailSender).send(any(SimpleMailMessage.class));
     }
@@ -60,7 +60,7 @@ class EmailSenderUsecaseTest {
         doThrow(new MailSendException("Failed")).when(mailSender).send(any(SimpleMailMessage.class));
 
         EmailNaoEnviadoException exception = assertThrows(EmailNaoEnviadoException.class, () -> {
-            emailSenderUsecase.sendEmail(emailEntity);
+            emailSenderUsecase.iSendEmail(emailEntity);
         });
 
         assertEquals("O email não pode ser enviado.", exception.getMessage());
@@ -72,7 +72,7 @@ class EmailSenderUsecaseTest {
         doThrow(new MailSendException("Failed")).when(mailSender).send(any(SimpleMailMessage.class));
 
         EmailNaoEnviadoException exception = assertThrows(EmailNaoEnviadoException.class, () -> {
-            emailSenderUsecase.sendEmailToOthers(emailOtherEntity);
+            emailSenderUsecase.iSendEmailToOthers(emailOtherEntity);
         });
 
         assertEquals("O email não pode ser enviado.", exception.getMessage());

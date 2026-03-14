@@ -24,13 +24,13 @@ public class EmailController {
 
     @PostMapping
     public ResponseEntity<Void> sendEmail(@Valid @RequestBody EmailRequestDTO emailRequestDTO) {
-        sendEmail.sendEmail(EmailMapper.toEmailEntity(emailRequestDTO));
+        sendEmail.iSendEmail(EmailMapper.toEmailEntity(emailRequestDTO));
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/others")
     public ResponseEntity<Void> sendEmailToOthers(@Valid @RequestBody OthersEmailRequestDTO emailRequestDTO) {
-        sendEmailToOthers.sendEmailToOthers(EmailMapper.toEmailOtherEntity(emailRequestDTO));
+        sendEmailToOthers.iSendEmailToOthers(EmailMapper.toEmailOtherEntity(emailRequestDTO));
         return ResponseEntity.ok().build();
     }
 
